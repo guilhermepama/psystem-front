@@ -26,7 +26,7 @@ async function getStrapiData(path: string) {
   console.log(url.href);
 
   try {
-    const response = await fetch(url.href);
+    const response = await fetch(url.href,);
     const data = await response.json();
     console.dir(data, { depth: null});
     return data;
