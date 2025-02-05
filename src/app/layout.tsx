@@ -30,14 +30,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header>
-          <div>
-            <Link href={'/'}>Home</Link>
-            <Link href={'/clientes'}>Clientes</Link>
-          </div>
-        </header>
         {children}
-        <footer>Rodapé da aplicação</footer>
       </body>
     </html>
   );
