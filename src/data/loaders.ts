@@ -1,6 +1,7 @@
 import qs from "qs";
 import { getStrapiURL } from "@/lib/utils";
 
+
 const baseUrl = getStrapiURL();
 
 async function fetchData(url: string) {
@@ -55,7 +56,7 @@ export async function getHomePageData() {
     return await fetchData(url.href);
   }
 
-  export async function getGlobalPageData() {
+  export async function getGlobalData() {
     const url = new URL("/api/global", baseUrl);
   
     url.search = qs.stringify({
@@ -65,6 +66,16 @@ export async function getHomePageData() {
         "footer.logoText",
         "footer.socialLink",
       ],
+    });
+  
+    return await fetchData(url.href);
+  }
+
+  export async function getGlobalPageMetadata() {
+    const url = new URL("/api/global", baseUrl);
+  
+    url.search = qs.stringify({
+      fields: ["title", "description"],
     });
   
     return await fetchData(url.href);

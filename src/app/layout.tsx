@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import { getGlobalData, getGlobalPageMetadata } from "@/data/loaders";
+
 import { Header } from "../components/custom/header";
 import { Footer } from "@/components/custom/footer";
-
-import { getGlobalPageData } from "@/data/loaders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,28 +17,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Cauê Carniel-Fernandes',
-    template: '%s | PSYSTEM'
-  },
-  description: "Sistema de Gestão de Psicologia",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = await getGlobalPageMetadata();
+
+  return {
+    title: metadata?.data?.title ?? "Epic Next Course",
+    description: metadata?.data?.description ?? "Epic Next Course",
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode;
 }>) {
-  const globalData = await getGlobalPageData();
-  console.log(globalData);
+  const globalData = await getGlobalData();
+  console.dir(globalData, { depth: null });
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header data={globalData.data.header} />
-        <div>{children}</div>
+        {children}
         <Footer data={globalData.data.footer} />
       </body>
     </html>
