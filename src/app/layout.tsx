@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "../components/custom/header";
+import { Footer } from "@/components/custom/footer";
 
 import { getGlobalPageData } from "@/data/loaders";
 
@@ -37,6 +38,7 @@ export default async function RootLayout({
       >
         <Header data={globalData.data.header} />
         <div>{children}</div>
+        <Footer data={globalData.data.footer} />
       </body>
     </html>
   );
