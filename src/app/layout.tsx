@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Link from 'next/link'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import { getGlobalData } from "@/data/loaders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,16 +22,19 @@ export const metadata: Metadata = {
   description: "Sistema de Gestão de Psicologia",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode,
 }>) {
+  const globalData = await getGlobalData();
+  console.dir(globalData);
   return (
     <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-         {children}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
       </body>
     </html>
   );

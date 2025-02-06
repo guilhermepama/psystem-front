@@ -1,24 +1,11 @@
-import qs from "qs";
+import { getHomePageData } from "@/data/loaders";
 import { HeroSection } from "@/components/custom/hero-section";
+import { FeatureSection } from "@/components/custom/features-section";
 
 
-const homePageQuery = qs.stringify({
-  populate: {
-    blocks: {
-      on: {
-        "layout.hero-section": {
-          populate: {
-            image: {
-              fields: ["url", "alternativeText"],
-            },
-            link: true,
-          },
-        },
-      },
-    },
-  }});
+
 async function getStrapiData(path: string) {
-  const baseUrl = "http://localhost:1337"
+  const baseUrl = getStrapiURL();
 
   const url = new URL(path, baseUrl);
   url.search = homePageQuery;
@@ -26,29 +13,32 @@ async function getStrapiData(path: string) {
   console.log(url.href);
 
   try {
-    const response = await fetch(url.href,);
+    const response = await fetch(url.href);
     const data = await response.json();
-    console.dir(data, { depth: null});
     return data;
   } catch (error) {
     console.error(error);
   }
 }
-export default async function Home () {
-  const strapiData = await getStrapiData("/api/home-page")
 
-  if (!strapiData?.data) {
-    return <p>Erro: Dados não encontrados</p>;
-  }
+const blockComponents = {
+  "layout.hero-section": HeroSection,
+  "layout.features-section": FeatureSection,
+};
 
-  const { title, description, blocks } = strapiData.data;
+function blockRenderer(block: any) {
+  const Component = blockComponents[block.__component as keyof typeof blockComponents];
+  return Component ? <Component key={block.id} data={block} /> : null;
+}
+
+export default async function Home() {
+  const strapiData = await getHomePageData();
+  console.dir(strapiData, { depth: null });
+  const { blocks } = strapiData?.data || [];
 
   return (
     <main>
-      <h1 className="text-5xl font-bold">{title}</h1>
-      <p className="text-xl mt-4">{description}</p>
-      <HeroSection data={blocks[0]} />
+      {blocks.map(blockRenderer)}
     </main>
   );
 }
-
