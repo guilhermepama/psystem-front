@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "../components/custom/header";
 
-import { getGlobalData } from "@/data/loaders";
+import { getGlobalPageData } from "@/data/loaders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,14 +28,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode,
 }>) {
-  const globalData = await getGlobalData();
-  console.dir(globalData);
+  const globalData = await getGlobalPageData();
+  console.log(globalData);
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Header data={globalData.data.header} />
+        <div>{children}</div>
       </body>
     </html>
   );

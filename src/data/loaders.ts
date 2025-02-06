@@ -55,7 +55,7 @@ export async function getHomePageData() {
     return await fetchData(url.href);
   }
 
-  export async function getGlobalData() {
+  export async function getGlobalPageData() {
     const url = new URL("/api/global", baseUrl);
   
     url.search = qs.stringify({
