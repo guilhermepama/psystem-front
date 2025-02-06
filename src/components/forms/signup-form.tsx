@@ -41,7 +41,7 @@ export function SignupForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder="seunome@email.com"
               />
             </div>
 
@@ -56,7 +56,7 @@ export function SignupForm() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <button className="w-full">Sign Up</button>
+            <button className="w-full">Cadastrar</button>
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

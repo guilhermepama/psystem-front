@@ -32,7 +32,7 @@ export function SigninForm() {
                 id="identifier"
                 name="identifier"
                 type="text"
-                placeholder="username or email"
+                placeholder="nome de usuário ou email"
               />
             </div>
             <div className="space-y-2">
@@ -41,18 +41,18 @@ export function SigninForm() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="password"
+                placeholder="insira sua senha"
               />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <button className="w-full">Sign In</button>
+            <button className="w-full">Entrar</button>
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">
           Não tem uma conta?
           <Link className="underline ml-2" href="signup">
-            Criar
+            Crie agora mesmo
           </Link>
         </div>
       </form>
